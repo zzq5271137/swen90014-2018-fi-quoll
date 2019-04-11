@@ -1,0 +1,55 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display courses in data table. -->
+
+{% block nav-courses %}
+<div class="w3-container w3-blue-grey w3-center w3-text-light-grey w3-padding-32">
+    <h4><b>Courses</b></h4>
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+    <p><button class="w3-button w3-white w3-padding-large w3-margin-top w3-margin-bottom" style="width:auto;"
+      OnClick="location.href= '{% url 'course_add' %}'">
+      Add new Courses
+    </button></p>
+</div>
+
+<table id="course-list" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Course Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if course_list %}
+    <tr>
+        {% for course in course_list %}
+        <td><a href="{% url 'course_detail' course.id %}">{{ course.course_name }}</a></td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <p>No courses are found.</p>
+    {% endif %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Course Name</th>
+    </tr>
+    </tfoot>
+</table>
+
+<div class="w3-sand w3-container w3-center w3-text-blue-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+</div>
+
+<script>
+    $(function(){
+    $("#course-list").dataTable();
+    })
+</script>
+
+{% endblock %}

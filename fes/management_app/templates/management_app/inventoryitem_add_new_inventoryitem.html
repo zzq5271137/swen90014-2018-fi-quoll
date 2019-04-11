@@ -1,0 +1,34 @@
+{% extends "management_app/navigation_bar_base.html" %}
+{% block extra_head %}
+#start_end{
+    width: 40%;
+}
+{% endblock %}
+
+<!--This page inherits from navigation_bar_base. It is used to add inventory items and edit inventory items. -->
+
+{% block nav-inventoryitem-new %}
+<div class="w3-container w3-sand w3-center w3-text-black w3-padding-32">
+    <h4><b>Inventory Item</b></h4>
+
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            {{ item_form.as_p }}
+            {{ item_form.media }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    </div>
+</div>
+
+<div class="w3-container w3-sand w3-center w3-text-light-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+</div>
+
+{% endblock %}

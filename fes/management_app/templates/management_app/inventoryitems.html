@@ -1,0 +1,63 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display inventory items in data table. -->
+
+{% block nav-inventoryitems %}
+<div class="w3-container w3-blue-grey w3-center w3-text-light-grey w3-padding-32">
+    <h4><b>Inventory Items</b></h4>
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+    <p><button class="w3-button w3-white w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'inventoryitem_add' %}'" style="width:auto;">Add new Item</button></p>
+
+</div>
+
+<table id="inventoryitem_list" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Item Code</th>
+        <th>Item Type</th>
+        <th>Item Status</th>
+        <th>Interaction History</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if inventoryitem_list %}
+    <tr>
+        {% for item in inventoryitem_list %}
+          <td><a href="{% url 'inventoryitem_detail' item.item_code %}">{{ item.item_code }}</a></td>
+          <td>{{ item.get_item_type_display }}</td>
+          <td>{{ item.get_item_status_display }}</td>
+        <td><a href="{% url 'item_interaction' item.item_code %}">{{ item.item_taken }}</a></td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <p>No items are found.</p>
+    {% endif %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Item Code</th>
+        <th>Item Type</th>
+        <th>Item Status</th>
+        <th>Interaction History</th>
+    </tr>
+    </tfoot>
+</table>
+
+<div class="w3-sand w3-container w3-center w3-text-blue-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+</div>
+
+<script>
+    $(function(){
+    $("#inventoryitem_list").dataTable();
+    })
+</script>
+
+{% endblock %}

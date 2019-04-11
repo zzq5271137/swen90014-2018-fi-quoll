@@ -1,0 +1,71 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display all classes in the data table. -->
+{% block nav-classes %}
+<div class="w3-container w3-blue-grey w3-center w3-text-light-grey w3-padding-32">
+    <h4><b>Classes</b></h4>
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+    <p><button class="w3-button w3-white w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'class_add' %}'" style="width:auto;">Add new Class</button></p>
+
+</div>
+
+<table id="class-list" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Client</th>
+        <th>Trainer</th>
+        <th>Location</th>
+        <th>Title</th>
+        <th>Course</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if class_list %}
+    <tr>
+        {% for class in class_list %}
+        <td><a href="{% url 'class_detail' class.id %}">{{ class.start}}</a></td>
+        <td>{{ class.end }}</td>
+        <td>{{ class.fesclass.class_client}}</td>
+        <td>{{ class.fesclass.class_trainer}}</td>
+        <td>{{ class.fesclass.class_location}}</td>
+        <td>{{ class.title}}</td>
+        <td><a href="{% url 'course_detail' class.fesclass.class_course_id %}">{{ class.fesclass.class_course }}</a></td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <p>No classes are found.</p>
+    {% endif %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Client</th>
+        <th>Trainer</th>
+        <th>Location</th>
+        <th>Title</th>
+        <th>Course</th>
+    </tr>
+    </tfoot>
+</table>
+
+<div class="w3-sand w3-container w3-center w3-text-blue-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+</div>
+
+<script>
+    $(function(){
+    $("#class-list").dataTable();
+    })
+</script>
+
+{% endblock %}

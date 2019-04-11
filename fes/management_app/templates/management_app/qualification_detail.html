@@ -1,0 +1,45 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display qualification details. -->
+
+{% block nav-qualification-detail %}
+  <div class="w3-container w3-sand w3-center w3-text-black w3-padding-32">
+    <div class="w3-container w3-sand w3-center w3-text-blue-grey w3-padding-32" style="max-width:100%">
+    <h1><b>Qualification Detail</b></h1>
+      <div class="w3-content w3-justify" style="max-width:600px">
+          <hr class="w3-opacity w3-blue-grey">
+          <hr class="w3-opacity w3-blue-grey">
+      </div>
+    </div>
+
+    <p><button class="w3-button w3-blue-grey w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'qualification_edit' qualification.id %}'" style="width:auto;">Edit Qualification</button></p>
+    <hr class="w3-opacity">
+    {% if qualification %}
+
+    <p>Qualification Name : <b>{{ qualification.qualification_name }}</b></p>
+
+      <hr class="w3-opacity">
+      <h4><b>Teachable Courses</b></h4>
+
+        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+        {% for course in qualification.course_teachable.all %}
+          <li>{{ course }}</li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <p>Something went wrong.</p>
+    {% endif %}
+    <hr class="w3-opacity">
+    <p><button class="w3-button w3-blue-grey w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'qualification_delete' qualification.id %}'" style="width:auto;">Delete Qualification</button></p>
+
+    <div class="w3-container w3-sand w3-center w3-text-blue-grey w3-padding-32" style="max-width:100%">
+      <div class="w3-content w3-justify" style="max-width:600px">
+          <hr class="w3-opacity w3-blue-grey">
+          <hr class="w3-opacity w3-blue-grey">
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

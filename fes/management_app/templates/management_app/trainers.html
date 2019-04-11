@@ -1,0 +1,60 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display trainers in the data table. -->
+
+{% block nav-trainers %}
+<div class="w3-container w3-blue-grey w3-center w3-text-light-grey w3-padding-32">
+    <h4><b>Trainers</b></h4>
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+    <p><button class="w3-button w3-white w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'trainer_add' %}'" style="width:auto;">Add new Trainer</button></p>
+
+</div>
+
+<table id="trainer-list" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Trainer First Name</th>
+        <th>Trainer Last Name</th>
+        <th>Trainer Register Number</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if trainer_list %}
+    <tr>
+        {% for trainer in trainer_list %}
+          <td><a href="{% url 'trainer_detail' trainer.id %}">{{ trainer.trainer_first_name }}</a></td>
+          <td><a href="{% url 'trainer_detail' trainer.id %}">{{ trainer.trainer_last_name }}</a></td>
+          <td>{{ trainer.trainer_register_number }}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <p>No trainers are found.</p>
+    {% endif %}
+    </tbody>
+    <tfoot>
+    <tr>
+        <th>Trainer First Name</th>
+        <th>Trainer Last Name</th>
+        <th>Trainer Register Number</th>
+    </tr>
+    </tfoot>
+</table>
+
+<div class="w3-sand w3-container w3-center w3-text-blue-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+</div>
+
+<script>
+    $(function(){
+    $("#trainer-list").dataTable();
+    })
+</script>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display course details. -->
+
+{% block nav-course-detail %}
+  <div class="w3-container w3-sand w3-center w3-text-black w3-padding-32">
+    <div class="w3-container w3-sand w3-center w3-text-blue-grey w3-padding-32" style="max-width:100%">
+    <h1><b>Course Detail</b></h1>
+      <div class="w3-content w3-justify" style="max-width:600px">
+          <hr class="w3-opacity w3-blue-grey">
+          <hr class="w3-opacity w3-blue-grey">
+      </div>
+    </div>
+
+    <p><button class="w3-button w3-blue-grey w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'course_edit' course.id %}'" style="width:auto;">Edit Course</button></p>
+    <hr class="w3-opacity">
+    {% if course %}
+
+      <p>Course Name : {{ course.course_name }}</p>
+      <p>JSA required: {{ course.jsa_required}}</p>
+      <p>Attendee required: {{ course.attendee_required}}</p>
+      <p>Customer sign required: {{ course.customer_sign_required}}</p>
+
+      {% else %}
+        <p>Something went wrong.</p>
+    {% endif %}
+    <hr class="w3-opacity">
+    <p><button class="w3-button w3-blue-grey w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'course_delete' course.id %}'" style="width:auto;">Delete Course</button></p>
+
+    <div class="w3-container w3-sand w3-center w3-text-blue-grey w3-padding-32" style="max-width:100%">
+      <div class="w3-content w3-justify" style="max-width:600px">
+          <hr class="w3-opacity w3-blue-grey">
+          <hr class="w3-opacity w3-blue-grey">
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

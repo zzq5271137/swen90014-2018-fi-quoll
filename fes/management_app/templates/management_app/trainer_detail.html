@@ -1,0 +1,55 @@
+{% extends "management_app/navigation_bar_base.html" %}
+
+<!--This page inherits from navigation_bar_base. It is used to display trainers' details -->
+
+{% block nav-trainer-detail %}
+  <div class="w3-container w3-sand w3-center w3-text-black w3-padding-32">
+    <div class="w3-container w3-sand w3-center w3-text-blue-grey w3-padding-32" style="max-width:100%">
+    <h1><b>Trainer Detail</b></h1>
+      <div class="w3-content w3-justify" style="max-width:600px">
+          <hr class="w3-opacity w3-blue-grey">
+          <hr class="w3-opacity w3-blue-grey">
+      </div>
+    </div>
+
+    <p><button class="w3-button w3-blue-grey"
+               OnClick="location.href= '{% url 'trainer_edit' trainer.id %}'" style="width:auto;">Edit Trainer</button></p>
+
+    <hr class="w3-opacity">
+    {% if trainer %}
+      <p>Trainer First Name : {{ trainer.trainer_first_name }}</p>
+      <p>Trainer Last Name : {{ trainer.trainer_last_name }}</p>
+      <p>Register Number: {{ trainer.trainer_register_number}}</p>
+    <p><button class="w3-button w3-red"
+               OnClick="location.href= '{% url 'trainer_timetable' trainer.id %}'" style="width:auto;">CheckMyTimetable</button></p>
+
+    <hr class="w3-opacity">
+      <h4><b>Contact</b></h4>
+      <p>{{ trainer.trainer_email}}</p>
+      <p>{{ trainer.trainer_work_phone}}</p>
+
+    <hr class="w3-opacity">
+      <h4><b>Qualifications</b></h4>
+
+        <ul class="w3-ul w3-white w3-center w3-opacity w3-hover-opacity-off">
+        {% for qualification in trainer.trainer_qualification.all %}
+          <li>{{ qualification }}</li>
+        {% endfor %}
+        </ul>
+      {% else %}
+
+        <p>Something went wrong.</p>
+    {% endif %}
+    <hr class="w3-opacity">
+    <p><button class="w3-button w3-blue-grey w3-padding-large w3-margin-top w3-margin-bottom"
+               OnClick="location.href= '{% url 'trainer_delete' trainer.id %}'" style="width:auto;">Delete Trainer</button></p>
+
+    <div class="w3-container w3-sand w3-center w3-text-blue-grey w3-padding-32" style="max-width:100%">
+      <div class="w3-content w3-justify" style="max-width:600px">
+          <hr class="w3-opacity w3-blue-grey">
+          <hr class="w3-opacity w3-blue-grey">
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

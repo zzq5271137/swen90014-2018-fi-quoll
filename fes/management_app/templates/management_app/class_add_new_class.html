@@ -1,0 +1,57 @@
+{% extends "management_app/navigation_bar_base.html" %}
+{% block extra_head %}
+#start_end{
+    width: 10%;
+}
+{% endblock %}
+{% block nav-class-new %}
+
+<!--This page inherits from navigation_bar_base. It is used to add classes and edit classes. -->
+<div class="w3-container w3-sand w3-center w3-text-black w3-padding-32">
+    <h4><b>Classes</b></h4>
+
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+
+        <form method="POST" class="post-form">
+            {% csrf_token %}
+            {{ class_form.as_p }}
+            {{ class_form.media }}
+
+            <hr class="w3-opacity w3-black">
+            <h4>Attendees (fistname lastname)</h4>
+
+            {{ attendee_formset.management_form }}
+            {% for attendee_form in attendee_formset %}
+                <div class="attendee-formset">
+                    {{ attendee_form.first_name }}
+                    {{ attendee_form.last_name }}
+                </div>
+            {% endfor %}
+
+            <br><br>
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="w3-container w3-sand w3-center w3-text-light-grey w3-padding-32">
+    <div class="w3-content w3-justify" style="max-width:600px">
+        <hr class="w3-opacity w3-black">
+        <hr class="w3-opacity w3-black">
+    </div>
+</div>
+
+
+<script>
+    $('.attendee-formset').formset({
+        addText: 'add attendee',
+        deleteText: 'remove'
+    });
+</script>
+
+{% endblock %}

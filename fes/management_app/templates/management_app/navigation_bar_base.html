@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<title>FES Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+<link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
+<link href="{{ STATIC_URL }} /static/bootstrap.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="{{ STATIC_URL }} /static/jquery-3.3.1.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="{{ STATIC_URL }} /static/bootstrap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }} /static/jquery.formset.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+<script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
+<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+
+{{ class_form.media }}
+{{ item_form.media }}
+{{ class_filter_form.media }}
+
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+.w3-third img{margin-bottom: -6px; opacity: 0.8; cursor: pointer}
+.w3-third img:hover{opacity: 1}
+{% block extra_head %}{% endblock %}
+</style>
+<body class="w3-sand w3-content" style="max-width:100%">
+
+<!--This page is the parent page for the rest pages in the management_app, it contains a navigation bar, and the footer. -->
+
+{% block nav %}
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+  <img src="{% static 'logo.jpg' %}" style="width:100px;height:66px;">
+  <h3 class="w3-padding-64 w3-center"><b>Fire<br>Equipments<br>Service<br>Admin</b></h3>
+  <a href="/management_app/" onclick="w3_close()" class="w3-bar-item w3-button">HomePage</a>
+  <a href="{% url 'course_list' %}" onclick="w3_close()" class="w3-bar-item w3-button">Courses</a>
+  <a href="/management_app/classes" onclick="w3_close()" class="w3-bar-item w3-button">Classes</a>
+  <a href="/management_app/trainers" onclick="w3_close()" class="w3-bar-item w3-button">Trainers</a>
+  <a href="/management_app/clients" onclick="w3_close()" class="w3-bar-item w3-button">Clients</a>
+  <a href="/management_app/qualifications" onclick="w3_close()" class="w3-bar-item w3-button">Qualifications</a>
+  <a href="/management_app/inventoryitems" onclick="w3_close()" class="w3-bar-item w3-button">Inventory</a>
+  <a href="/management_app/timesheet_search" onclick="w3_close()" class="w3-bar-item w3-button">Timesheet</a>
+  <br> <br> <br> <br> <br>
+  <a href="{% url 'logout' %}">Logout</a>
+</nav>
+{% endblock %}
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+  <span class="w3-left w3-padding">Fire Equipments Service Admin</span>
+  <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main"  style="margin-left:300px">
+
+  <!-- Push down content on small screens -->
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+
+  {% block nav-homepage %}              {% endblock %}
+  {% block nav-trainers %}              {% endblock %}
+  {% block nav-trainer-timetable %}     {% endblock %}
+  {% block nav-trainer-detail %}        {% endblock %}
+  {% block nav-trainer-new %}           {% endblock %}
+  {% block nav-courses %}               {% endblock %}
+  {% block nav-course-detail %}         {% endblock %}
+  {% block nav-course-new %}            {% endblock %}
+  {% block nav-classes %}               {% endblock %}
+  {% block nav-class-detail %}          {% endblock %}
+  {% block nav-class-new %}             {% endblock %}
+  {% block nav-clients %}               {% endblock %}
+  {% block nav-client-detail %}         {% endblock %}
+  {% block nav-client-new %}            {% endblock %}
+  {% block nav-qualifications %}        {% endblock %}
+  {% block nav-qualification-detail %}  {% endblock %}
+  {% block nav-qualification-new %}     {% endblock %}
+  {% block nav-inventoryitems %}        {% endblock %}
+  {% block nav-inventoryitem-detail %}  {% endblock %}
+  {% block nav-inventoryitem-new %}     {% endblock %}
+  {% block nav-inventoryitem-interaction %}    {% endblock %}
+
+  {% block nav-timesheets-search %}     {% endblock %}
+
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-32 w3-blue-grey">
+    <div class="w3-row-padding">
+      <div class="w3-third">
+        <ul class="w3-ul">
+          <li class = "w3-hover-black">
+            <a href="http://www.fes.com.au/www/" style="color: #ffffff">Home</a>
+          </li>
+          <li class = "w3-hover-black">
+            <a href="http://www.fes.com.au/www/disclaimer/" style="color: #ffffff">Disclaimer</a>
+          </li>
+          <li class = "w3-hover-black">
+            <a href="http://www.fes.com.au/www/privacy-statement/" style="color: #ffffff">Privacy</a>
+          </li>
+          <li class = "w3-hover-black">
+            <a href="http://www.fes.com.au/www/sitemap/" style="color: #ffffff">Sitemap</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="w3-third">
+        <a>BUSINESS ADDRESS</a>
+          <p> Fire Equipment Services
+              Suite 2 / 5 Lakeside Drive
+              Burwood East VIC 3151
+          </p>
+
+        <a>POSTAL ADDRESS</a>
+          <p>Fire Equipment Services
+              PO BOX 3070
+              Nunawading VIC 3131
+          </p>
+      </div>
+
+      <div class="w3-third">
+        <a>PHONE</a>
+           <p> 1300 855 163 </p>
+
+        <a>FAX</a>
+           <p> 1300 655 511 </p>
+
+        <a>GENERAL ENQUIRIES</a>
+           <p> enquiry@fes.com.au </p>
+      </div>
+
+    </div>
+  </footer>
+  <div class="w3-black w3-center w3-padding-24">
+    <img src="{% static 'fes_logo.svg' %}" style="width:100px;height:66px;">
+    <p>Made by TEAM FI-QUOLL </p>
+  </div>
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+</script>
+
+
+</body>
+</html>
